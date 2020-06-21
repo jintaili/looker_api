@@ -50,7 +50,7 @@ get_look = function(look_id, limit=500, result.format = 'json',
         '%s/looks/%s/run/%s?limit=%s&access_token=%s',
         Sys.getenv('LOOKER_API_PATH'),
         look_id,
-        resultformat,
+        result.format,
         as.character(limit),
         Sys.getenv('LOOKER_ACCESS_TOKEN')
     )
@@ -60,7 +60,7 @@ get_look = function(look_id, limit=500, result.format = 'json',
     if (status_code != 200) {
         stop(sprintf('status code %s', status_code))
     } else {
-        if (resultformat = 'json' & json.to.data.table) {
+        if (result.format == 'json' & json.to.data.table) {
             rbindlist(httr::content(response), fill = T)
         } else {
             httr::content(response)
